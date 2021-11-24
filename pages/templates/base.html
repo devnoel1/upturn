@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Telegram Bot-</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link rel="icon" type="image/png" href="{% static 'pages/assets/images/favicon.ico' %}" />
+
+    <link rel="apple-touch-icon" href="{% static 'pages/apple-touch-icon.html' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/iconfont.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/magnific-popup.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/assets/css/rev-settings.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'pages/assets/css/plugins.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'pages/assets/css/style.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'pages/assets/css/responsive.css' %}" />
+</head>
+
+<body>
+    <div class="header header-transparent nav-sticky">
+        <header class="xs-header header-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="xs-logo-wraper">
+                            <a href="index.html" class="xs-logo">
+                                <img src="{% static 'pages/assets/images/logo-transparent-header.png' %}" alt=""
+                                    class="logo-transparent" />
+                                <img src="{% static 'pages/assets/images/logo.png' %}" alt="" class="logo-sticky" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6">
+                        <nav class="xs-menus align-to-right">
+                            <div class="nav-header">
+                                <a class="nav-brand" href="/"></a>
+                                <div class="nav-toggle"></div>
+                            </div>
+                            <div class="nav-menus-wrapper">
+                                <ul class="nav-menu align-to-right single-page-menu">
+                                    <li><a href="#home" >HOME</a></li>
+                                    <li><a href="#service">SERVICES</a></li>
+                                    <li><a href="#faq">FAQ</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li class="dropdown">
+                                      <a href="#" class="dropdown-toggle text-uppercase" data-toggle="dropdown"><b>{{ user.username }}</b></a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                          <li class="nav-item"><a href="" class="nav-link">Account</a></li>
+                                          <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                    {% else %}
+                                    <li><a href="/login">SIGN IN</a></li>
+                                    <li><a href="/register">SIGN UP</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+
+            </div>
+        </header>
+    </div>
+   
+    {% block content %}
+    {% endblock content %}
+
+
+    <footer class="xs-footer-section">
+      
+
+        <div class="copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="copyright-text">
+                  <p>
+                    Copyright &copy; 2021, All Right Reserved
+                    <a href="#"></a>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <ul class="social-list">
+                  <li>
+                    <a href="https://www.facebook.com/#" class="facebook"
+                      ><i class="fa fa-facebook"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="https://twitter.com/#" class="twitter"
+                      ><i class="fa fa-twitter"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="https://bd.linkedin.com/#" class="linkedin"
+                      ><i class="fa fa-linkedin"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="https://www.instagram.com/#" class="instagram"
+                      ><i class="fa fa-instagram"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="{% static 'pages/assets/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/plugins.js' %}"></script>
+    <script src="{% static 'pages/assets/js/Popper.js' %}"></script>
+    <script src="{% static 'pages/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/isotope.pkgd.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=AIzaSyCy7becgYuLwns3uumNm6WdBYkBpLfy44k"></script>
+    <script src="{% static 'pages/assets/js/scrollax.js' %}"></script>
+    <script src="{% static 'pages/assets/js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/jquery.easypiechart.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/delighters.j' %}s"></script>
+    <script src="{% static 'pages/assets/js/main.js' %}"></script>
+</body>
+
+</html>

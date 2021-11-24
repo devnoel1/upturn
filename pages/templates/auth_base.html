@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    {% load static %}
+    <title>Telegram Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!-- External CSS libraries -->
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/auth/css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/auth/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/authfonts/flaticon/font/flaticon.css' %}">
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="{% static 'pages/auth/img/favicon.ico' %}" type="image/x-icon" >
+
+    <!-- Custom Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/auth/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="{% static 'pages/auth/css/skins/default.css' %}">
+
+</head>
+<body id="top">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="page_loader"></div>
+
+<!-- Login 2 section start -->
+<div class="login-2">
+    <div class="container-fluid">
+        <div class="row login-box">
+            <div class="col-lg-6 align-self-center pad-0 form-section">
+                <div class="form-inner">
+                    <a href="login-2.html" class="logo">
+                        <img src="{% static 'pages/auth/img/logos/logo.png' %}" alt="logo">
+                    </a>
+                    {% block auth_cotent %}
+                    {% endblock auth_cotent %}
+                </div>
+            </div>
+            <div class="col-lg-6 w-100 bg-color-15 align-self-center pad-0 none-992 bg-img"></div>
+        </div>
+    </div>
+</div>
+<!-- Login 2 section end -->
+
+<!-- External JS libraries -->
+<script src="{% static 'pages/auth/js/jquery-2.2.0.min.js' %}"></script>
+<script src="{% static 'pages/auth/js/popper.min.js' %}"></script>
+<script src="{% static 'pages/auth/js/bootstrap.min.js' %}"></script>
+<!-- Custom JS Script -->
+</body>
+</html>

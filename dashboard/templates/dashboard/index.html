@@ -1,0 +1,45 @@
+{% extends 'dashboard/base.html' %} {% block content %}
+<div class="d-flex justify-content-center">
+    <div class="card w-75">
+        <div class="card-body">
+            <form method="post" action="">
+                <label for="">Category</label>
+                <select class="form-select mb-3" class="category">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>   
+                <label for="">Service</label>
+                <select class="form-select mb-3" class="service">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>  
+                <div class="mb-3">
+                    <label class="form-label">Link</label>
+                    <input type="text"  name="link" class="form-control">
+                </div> 
+                <div class="mb-3">
+                    <label class="form-label">Quantity</label>
+                    <input type="text"  name="quantity" class="form-control">
+                </div> 
+                <div class="form-check form-checkbox-success mb-2">
+                    <input type="checkbox" class="form-check-input" id="customCheckcolor2">
+                    <label class="form-check-label" for="customCheckcolor2">Drip-feed</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Average time</label>
+                    <input type="text"  name="average_time" class="form-control">
+                </div> 
+                <div class="mb-3">
+                    <label class="form-label">Charge</label>
+                    <input type="text"  name="charge" class="form-control">
+                </div> 
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

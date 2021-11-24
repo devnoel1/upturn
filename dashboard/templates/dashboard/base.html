@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <!-- App favicon -->
+    <link rel="icon" type="image/png" href="{% static 'pages/assets/images/favicon.ico' %}" />
+
+    <!-- third party css -->
+    <link href="{% static 'assets/css/vendor/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
+
+    <!-- App css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="{% static 'assets/css/app-dark.min.css' %}" rel="stylesheet" type="text/css" id="dark-style" />
+
+</head>
+
+<body class="loading"
+    data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <!-- Begin page -->
+    <div class="wrapper">
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="leftside-menu">
+
+            <!-- LOGO -->
+            <a href="" class="logo text-center logo-light">
+                <span class="logo-lg">
+                    <img src="{% static 'pages/assets/images/footer-logo.png' %}" alt="" height="30">
+                </span>
+                <span class="logo-sm">
+                    <img src="{% static 'pages/assets/images/logo.png' %}" alt="" height="30">
+                </span>
+            </a>
+
+            <!-- LOGO -->
+            <a href="" class="logo text-center logo-dark">
+                <span class="logo-lg">
+                    <img src="{% static 'assets/images/footer-logo.png' %}" alt="" height="16">
+                </span>
+                <span class="logo-sm">
+                    <img src="{% static 'assets/images/footer-logo.png' %}" alt="" height="16">
+                </span>
+            </a>
+
+            <div class="h-100" id="leftside-menu-container" data-simplebar>
+
+                <!--- Sidemenu -->
+                <ul class="side-nav">
+                    <li class="side-nav-item">
+                        <a href="/user/dashboard" class="side-nav-link">
+                            <i class="uil-calender"></i>
+                            <span>New Order</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="/user/service" class="side-nav-link">
+                            <i class="uil-calender"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="/user/orders" class="side-nav-link">
+                            <i class="uil-comments-alt"></i>
+                            <span> Orders</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="/user/add-founds" class="side-nav-link">
+                            <i class="uil-rss"></i>
+                            <span>Add Found</span>
+                        </a>
+                    </li>
+
+                    
+
+                    <li class="side-nav-item">
+                        <a href="/user/affiliate" class="side-nav-link">
+                            <i class="uil-folder-plus"></i>
+                            <span>Affilliate</span>
+                        </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a href="/user/ticket" class="side-nav-link">
+                            <i class="uil-folder-plus"></i>
+                            <span>Ticket</span>
+                        </a>
+                    </li>
+                    <!-- <li class="side-nav-item">
+                        <a href="/user/mass-order" class="side-nav-link">
+                            <i class="uil-folder-plus"></i>
+                            <span>Mass Order</span>
+                        </a>
+                    </li> -->
+                </ul>
+                <div class="clearfix"></div>
+
+            </div>
+            <!-- Sidebar -left -->
+
+        </div>
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+                <!-- Topbar Start -->
+                <div class="navbar-custom">
+                    <ul class="list-unstyled topbar-menu float-end mb-0">
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown"
+                                href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <span class="account-user-avatar">
+                                    <img src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
+                                </span>
+                                <span>
+                                    <span class="account-user-name text-capitalize">{{ user.username }}</span>
+                                    <span class="account-position"></span>
+                                </span>
+                            </a>
+                            <div
+                                class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                                <!-- item-->
+                                <div class=" dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome !</h6>
+                                </div>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-account-circle me-1"></i>
+                                    <span>My Account</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="/logout" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-logout me-1"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <button class="button-menu-mobile open-left">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                    
+                </div>
+                <!-- end Topbar -->
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title text-capitalize">{{ page_title }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                    {% block content %}
+                        Dashboard content
+                    {% endblock content %}
+                </div>
+                <!-- container -->
+
+            </div>
+            <!-- content -->
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <script>document.write(new Date().getFullYear())</script> © Upturn - 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-end footer-links d-none d-md-block">
+                                <a href="javascript: void(0);">About</a>
+                                <a href="javascript: void(0);">Support</a>
+                                <a href="javascript: void(0);">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+
+    </div>
+    <!-- END wrapper -->    
+
+    <!-- bundle -->
+    <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.min.js' %}"></script>
+
+    <!-- third party js -->
+    <script src="{% static 'assets/js/vendor/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-jvectormap-1.2.2.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <!-- third party js ends -->
+
+    <!-- demo app -->
+    <script src="{% static 'assets/js/pages/demo.dashboard.js' %}"></script>
+    <!-- end demo js-->
+</body>
+
+</html>
