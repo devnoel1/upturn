@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %} {% block content %}
+<div class="d-flex justify-content-center">
+    <div class=" w-75">
+        <div class="accordion mb-4" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="uil-edit"></i> <span>Reply</span>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
+                    <div class="accordion-body">
+                        <form action="">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label for="">Name</label>
+                                    <input type="text" name="" id="" value="{{ user.first_name }} {{ user.last_name }}" class="form-control" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">Email</label>
+                                    <input type="text" name="" value="{{ user.email }}" id="" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="">Message</label>
+                                <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        {% for detail in details %}
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <i class="uil-user font-24"></i>
+               <div style="margin-left: 2%;">
+                <div class="ml-3 text-capitalize"><b>{{ detail.ticket.user }}</b></div>
+                <div class="badge bg-success">Owner</div>
+               </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {{ detail.message }}
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+ </div>
+{% endblock content %}

@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from dashboard.models import Account
+
 
 # Create your views here.
 def index(request):
@@ -54,6 +56,9 @@ def register(request):
         myuser.save()
 
         user = authenticate(username=username, password=password)
+
+        account = Account(user=user)
+        account.save()
 
         if user is not None:
             login(request, user)

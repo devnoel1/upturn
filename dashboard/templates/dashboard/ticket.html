@@ -2,7 +2,13 @@
 <div class="d-flex justify-content-center">
     <div class="card w-75 mb-5">
         <div class="card-body">
-            <form method="post" action="">
+            {%  if success %}
+                <div class="alert alert-success">
+                    {{ success }}
+                </div>
+            {% endif %}
+            <form method="post" action="/user/ticket">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="">Subject</label>
                <input type="text" class="form-control" name="subject"> 
@@ -11,7 +17,6 @@
                     <label for="">Message</label>
                     <textarea name="message" class="form-control" id="" cols="30" rows="10"></textarea>
                 </div>
-                
                 <button type="submit" class="btn btn-primary">submit</button>
             </form>
         </div>
@@ -29,12 +34,22 @@
                     <th></th>
                 </thead>
                 <tbody>
+                    {% for ticket in tickets %}
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ ticket.id }}</td>
+                        <td>{{ ticket.subject }}</td>
+                        <td>
+                            {% if ticket.status == "0" %}
+                            <span class="badge bg-warning">
+                                PENDING
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="/user/ticket/{{ ticket.id }}" class="btn btn-primary">View</a>
+                        </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

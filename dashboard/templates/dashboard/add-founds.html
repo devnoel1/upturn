@@ -1,24 +1,30 @@
-{% extends 'dashboard/base.html' %} {% block content %}
+{% extends 'dashboard/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
 <div class="d-flex justify-content-center">
     <div class="card w-50 mb-5">
         <div class="card-body">
-            <form method="post" action="">
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+            <form method="post" action="/user/add-founds">
+                {% csrf_token %}
                 <label for="">Method</label>
-                <select class="form-select mb-3" class="category">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select mb-3" name="payment_method">
+                    <option selected>--select--payment--method--</option>
+                    {% for payment_method in payment_methods %}
+                        <option value="{{ payment_method.slug }}">{{ payment_method.name }}</option>
+                    {% endfor %}
+                    
                 </select>   
                 <label for="">Amount</label>
-                <select class="form-select mb-3" class="service">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>  
-                
+                <input type="text" name="amount" value="" placeholder="$0.00" class="form-control">  
+                <!-- {{ form|crispy }}     -->
+               <div class="form-group mt-4">
                 <button type="submit" class="btn btn-primary">submit</button>
+               </div>
             </form>
         </div>
     </div>
@@ -46,4 +52,4 @@
         </div>
     </div>
 </div>
-{% endblock content %}
+{% endblock  %}

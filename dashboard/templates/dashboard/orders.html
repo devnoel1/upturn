@@ -1,5 +1,9 @@
 {% extends 'dashboard/base.html' %} 
 
+<!-- {% load crispy_forms_tags %} -->
+
+
+
 {% block content %}
 <div class="card">
     <div class="card-body">
@@ -7,26 +11,39 @@
             <thead>
                 <th>ID</th>
                 <th>Date</th>
-                <th>Link</th>
+                <!-- <th>Link</th> -->
                 <th>Charge</th>
-                <th>Start count</th>
-                <th>Quantity</th>
+                <!-- <th>Start count</th> -->
+                <!-- <th>Quantity</th> -->
                 <th>Service</th>
                 <th>Status</th>
-                <th>Remains</th>
+                <!-- <th>Remains</th> -->
             </thead>
             <tbody>
+                {% for order in orders %}
                 <tr>
+                    <td>{{ order.pk }}</td>
+                    <td>{{ order.created_on }}</td>
+                    <td>${{ order.service.price }}</td>
+                    <td>{{ order.service.name }}</td>
+                    <td>
+                        {% if order.status == '1' %}
+                        <span class="badge bg-success-lighten">Active</span>
+                        {% endif %}
+                        {% if order.status == '0' %}
+                        <span class="badge bg-warning-lighten">Pending</span>
+                        {% endif %}
+
+                        {% if order.status == '-1' %}
+                        <span class="badge bg-danger-lighten">Expired</span>
+                        {% endif %}
+                    </td>
+                    <!-- <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> -->
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

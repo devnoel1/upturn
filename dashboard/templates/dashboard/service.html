@@ -3,31 +3,50 @@
 {% block content %}
 <div class="card">
     <div class="card-header">
-       <strong> TELEGRAM MEMBERS</strong>
+       <strong> RECOMMENDED SERVICES</strong>
     </div>
     <div class="card-body">
         <table class="table table-bordered">
             <thead>
                 <th>ID</th>
                 <th>Service</th>
-                <th>Rate Per 1000</th>
-                <th>Min Order</th>
-                <th>Max Order</th>
-                <th>Average Time</th>
-                <th>Description</th>
+                <th>Price</th>
+                <th width="30">Description</th>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+               {% for service in services %}
+               <tr>
+                <td>{{ service.pk }}</td>
+                <td>{{ service.name }}</td>
+                <td>${{ service.price }}</td>
+                <td >
+                    <a href="#" data-id="{{ service.pk }}" class="btn btn-primary details">View</a>
+                </td>
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('.details').click(function(e){
+    e.preventDefault();
+    var id = $(this).data('id')
+ 
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'service_details' %}",
+        data: {"id": id},
+        success: function (response) {
+            data = JSON.parse(response.data)  
+        },
+        error: function(data) {
+            console.log(data);
+          }
+    })
+})
+</script>
+{% endblock %}

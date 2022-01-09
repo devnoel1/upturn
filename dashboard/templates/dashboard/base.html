@@ -56,8 +56,8 @@
                 <ul class="side-nav">
                     <li class="side-nav-item">
                         <a href="/user/dashboard" class="side-nav-link">
-                            <i class="uil-calender"></i>
-                            <span>New Order</span>
+                            <i class="uil-cart"></i>
+                            <span>Place Order</span>
                         </a>
                     </li>
 
@@ -69,15 +69,22 @@
                     </li>
 
                     <li class="side-nav-item">
+                        <a href="/user/subscription" class="side-nav-link">
+                            <i class="uil-file"></i>
+                            <span>Subscription</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
                         <a href="/user/orders" class="side-nav-link">
-                            <i class="uil-comments-alt"></i>
+                            <i class="uil-history"></i>
                             <span> Orders</span>
                         </a>
                     </li>
 
                     <li class="side-nav-item">
                         <a href="/user/add-founds" class="side-nav-link">
-                            <i class="uil-rss"></i>
+                        <i class="uil-coins"></i>
                             <span>Add Found</span>
                         </a>
                     </li>
@@ -86,22 +93,22 @@
 
                     <li class="side-nav-item">
                         <a href="/user/affiliate" class="side-nav-link">
-                            <i class="uil-folder-plus"></i>
+                            <i class="uil-folder-network"></i>
                             <span>Affilliate</span>
                         </a>
                     </li>
                     <li class="side-nav-item">
                         <a href="/user/ticket" class="side-nav-link">
-                            <i class="uil-folder-plus"></i>
+                            <i class="uil-ticket"></i>
                             <span>Ticket</span>
                         </a>
                     </li>
-                    <!-- <li class="side-nav-item">
-                        <a href="/user/mass-order" class="side-nav-link">
-                            <i class="uil-folder-plus"></i>
-                            <span>Mass Order</span>
+                    <li class="side-nav-item">
+                        <a href="/user/profile" class="side-nav-link">
+                            <i class="uil-user"></i>
+                            <span>Profile</span>
                         </a>
-                    </li> -->
+                    </li>
                 </ul>
                 <div class="clearfix"></div>
 
@@ -167,6 +174,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Account Balance</a></li>
+                                        <li class="breadcrumb-item active">$ {{ user.user.balance }}</li>
+                                    </ol>
+                                </div>
                                 <h4 class="page-title text-capitalize">{{ page_title }}</h4>
                             </div>
                         </div>
@@ -223,6 +236,15 @@
     <!-- demo app -->
     <script src="{% static 'assets/js/pages/demo.dashboard.js' %}"></script>
     <!-- end demo js-->
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        $.NotificationApp.send("Notification","{{ message }}","top-right","{{ message.tags }}","{{ message.tags }}")
+    </script>
+    {% endfor %}
+{% endif %}
+    {% block scripts %}
+    {% endblock %}
 </body>
 
 </html>
