@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'pages',
     'dashboard',
     'crispy_forms',
+    'bot',
 ]
 
 MIDDLEWARE = [
