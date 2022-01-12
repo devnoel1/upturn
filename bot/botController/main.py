@@ -13,370 +13,6 @@ from redis import Redis
 pyrogram.session.Session.notice_displayed = True
 
 
-# PROF start
-PROF_CLIENTS_DIR = './clients'
-
-async def prof_send(app, chat_ids):
-    with open('prof-firstname.txt', 'r') as namesFile:
-        names = namesFile.readlines()
-    with open('prof-lastname.txt', 'r') as namesFile1:
-        names1 = namesFile1.readlines()
-    with open('prof-bio.txt', 'r') as namesFile2:
-        names2 = namesFile2.readlines()
-    with open('prof-profile.txt', 'r') as namesFile3:
-        names3 = namesFile3.readlines()
-    with open('prof-username.txt', 'r') as namesFile4:
-        names4 = namesFile4.readlines()
-    
-
-    for i in range(0,1):
-        try:
-            await app.update_profile(first_name=names[prof_clients.index(app)], last_name=names1[prof_clients.index(app)], bio=names2[prof_clients.index(app)])
-            await app.set_profile_photo(photo="prof-photos/"+names3[prof_clients.index(app)].replace("\n",""))
-            await app.update_username(names4[prof_clients.index(app)].replace("\n",""))
-        except Exception as e:
-            print(str(e))
-
-        await asyncio.sleep(1)
-
-
-async def prof_main(t=0):
-
-    print('\n- Start Clients:')
-
-    global prof_clients
-    prof_clients = []
-    tasks = []
-    for f in os.listdir(PROF_CLIENTS_DIR):
-        if not f.endswith(".session"):
-            continue
-
-        session_name = f.replace('.session', '')
-        print(f'\n- Client({session_name})')
-        client = Client(session_name, workdir=PROF_CLIENTS_DIR)
-        try:
-            await client.start()
-            print(f' - Client({session_name}): Started')
-        except RPCError as e:
-            print(f' - Client({session_name}) Not Started: {e}')
-            continue
-        prof_clients.append(client)
-        tasks.append(asyncio.ensure_future(prof_send(client,"1")))
-
-    await asyncio.gather(*tasks)
-    await asyncio.gather(*[client.stop() for client in prof_clients])
-
-
-async def prof_corn_main(sleep_time):
-    while True:
-        await prof_main()
-        print(f'Sleep for {sleep_time} seconds')
-        await asyncio.sleep(sleep_time)
-
-
-async def prof_add_client():
-    session_name = input('Input session name: ')
-    async with Client(session_name, workdir=PROF_CLIENTS_DIR) as new_client:
-        print(f'- New Client {new_client.storage.database}')
-
-
-async def prof_usage():
-    print('BAD ARGS')
-
-def TelegramBulkAccountProfileChanger(args):
-    if not os.path.exists(PROF_CLIENTS_DIR):
-        os.mkdir(PROF_CLIENTS_DIR)
-
-    if len(args) == 1:
-        func = prof_main()
-    elif len(args) == 2:
-        if args[1].isdigit():
-            func = prof_corn_main(int(args[1]))
-        elif args[1] == '--add':
-            func = prof_add_client()
-        else:
-            func = prof_usage()
-    else:
-        func = prof_usage()
-
-    print('\nHere we go...\n')
-
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(func)
-    loop.close()
-
-    print('\nFinish!\n')
-# PROF end
-
-# forward start
-async def main(source_chat, target_chat, first_message):
-    async with Client('erfan4lx',4924338,'121759c8281541cdb3a75e47656bb0e0') as app:
-        app: Client
-        print("start")
-        for chat in [source_chat, target_chat]:
-            try:
-                await app.join_chat(chat)
-            except:
-                pass
-        async for message in app.iter_history(source_chat, reverse=True):
-            if message.message_id < first_message:
-                continue
-            print('msg: ', message.message_id)
-            try:
-                await message.copy(target_chat)
-            except errors.FloodWait as e:
-                print("sleep", e.x)
-                await asyncio.sleep(e.x + 0.4)
-            except errors.RPCError as e:
-                print('ex:', e)
-            except (errors.ChatInvalid, errors.ChatIdInvalid):
-                print('bad target!')
-                break
-            time.sleep(1)
-def Telegramchannelpostsforwader(args):
-    source_chat = args[1] if len(args)==2 else str(input("Enter the target channel: "))
-    target_chat = args[2] if len(args)==3 else str(input("Enter the destination channel: "))
-    first_message = args[3] if len(args)==4 else 0
-    asyncio.run(main(source_chat, target_chat, first_message))
-# forward end
-
-# join start
-JOIN_CLIENTS_DIR = './clients'
-JOIN_CHATS_FILENAME = 'join-chats.txt'
-
-join_counter = 0
-
-async def join_send(app, chat_ids):
-    global join_counter
-    for chat_id in chat_ids:
-        try:
-            join_counter += 1
-            await app.join_chat(str(chat_id))
-        except Exception as e:
-            print(str(e))
-        #if join_counter == 5:
-        #    time.sleep(1500)
-        #    join_counter = 0
-
-        await asyncio.sleep(1)
-
-
-async def join_main(t=0):
-    if os.path.exists(JOIN_CHATS_FILENAME):
-        with open(JOIN_CHATS_FILENAME) as file:
-            chats = [line.replace("\r", "").replace("\n", "") for line in file.readlines()]
-    else:
-        return print(f'- File({JOIN_CHATS_FILENAME}) NOT EXISTS')
-    if not chats:
-        return print(f'- NO CHAT-ID IN FILE({JOIN_CHATS_FILENAME})')
-
-    print('\n- Start Clients:')
-
-    clients = []
-    tasks = []
-    for f in os.listdir(JOIN_CLIENTS_DIR):
-        if not f.endswith(".session"):
-            continue
-
-        session_name = f.replace('.session', '')
-        print(f'\n- Client({session_name})')
-        client = Client(session_name, workdir=JOIN_CLIENTS_DIR)
-        try:
-            await client.start()
-            print(f' - Client({session_name}): Started')
-        except RPCError as e:
-            print(f' - Client({session_name}) Not Started: {e}')
-            continue
-        clients.append(client)
-        tasks.append(asyncio.ensure_future(join_send(client, chats)))
-
-    await asyncio.gather(*tasks)
-    await asyncio.gather(*[client.stop() for client in clients])
-
-
-async def join_corn_main(sleep_time):
-    while True:
-        await join_main()
-        print(f'Sleep for {sleep_time} seconds')
-        await asyncio.sleep(sleep_time)
-
-
-async def join_add_client():
-    session_name = input('Input session name: ')
-    async with Client(session_name, workdir=JOIN_CLIENTS_DIR) as new_client:
-        print(f'- New Client {new_client.storage.database}')
-
-
-async def join_usage():
-    print('BAD ARGS')
-
-
-def TelegramMemberAutoJoiner(args):
-
-    if not os.path.exists(JOIN_CLIENTS_DIR):
-        os.mkdir(JOIN_CLIENTS_DIR)
-
-    if len(args) == 1:
-        func = join_main()
-    elif len(args) == 2:
-        if args[1].isdigit():
-            func = join_corn_main(int(args[1]))
-        elif args[1] == '--add':
-            func = join_add_client()
-        else:
-            func = join_usage()
-    else:
-        func = join_usage()
-
-    print('\nHere we go...\n')
-
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(func)
-    loop.close()
-
-    print('\nFinish!\n')
-# join end
-# checker start
-CHECKER_CLIENTS_DIR = './clients'
-CHECKER_DEFAULT_FILENAME = 'checker-nums.txt'
-
-
-async def checker_main(once=True):
-    numbers_filename = input(f'- Enter Numbers File Name ({CHECKER_DEFAULT_FILENAME}): ') or CHECKER_DEFAULT_FILENAME
-    checkper = input('- Count Of Check Per Account: ')
-    MAX_EXPORT_COUNT = int(checkper)
-    if os.path.exists(numbers_filename):
-        with open(numbers_filename) as file:
-            numbers = [line.replace("\r", "").replace("\n", "")[-12:] for line in file.readlines()]
-    else:
-        print(f'- File({numbers_filename}) NOT EXISTS')
-        return
-    if not numbers:
-        return print(f'- NO NUMBER IN FILE({numbers_filename})')
-
-    print('\n- Start Clients:')
-    added_numbers = []
-    bad_numbers = []
-    in_progress = True
-    while in_progress:
-        for f in os.listdir(CHECKER_CLIENTS_DIR):
-            if not f.endswith(".session"):
-                continue
-            to_add_numbers = []
-            for _ in range(MAX_EXPORT_COUNT):
-                try:
-                    to_add_numbers.append(numbers.pop(0))
-                except IndexError:
-                    in_progress = False
-                    break
-            if to_add_numbers:
-                session_name = f.replace('.session', '')
-                print(f'\n- Client({session_name})')
-                async with Client(session_name, workdir=CHECKER_CLIENTS_DIR) as client:
-                    print(f' - Client({session_name}): Started')
-
-                    print(f' - Client({session_name}): ADD[{", ".join(to_add_numbers)}]')
-                    while True:
-                        try:
-                            res = await client.add_contacts(
-                                list(InputPhoneContact(phone=num, first_name=num) for num in to_add_numbers)
-                            )
-                            print(res.retry_contacts)
-
-                            for user in res.users:
-                                to_add_numbers.remove(user.phone)
-                                added_numbers.append(user.phone)
-                            for contact in res.retry_contacts:
-                                numbers.append(contact)
-                            print(
-                                f' - Client({session_name}): Succeed {len(res.imported)}, Limited: {len(res.retry_contacts)}, Not Joined: {len(to_add_numbers)}')
-                        except FloodWait as ex:
-                            if not once:
-                                await asyncio.sleep(ex.x + 1)
-                                continue
-                        except RPCError as ex:
-                            print(f' - Client({session_name}) Exp: {ex}')
-                        break
-                    bad_numbers.extend(to_add_numbers)
-
-        if once:
-            break
-
-    with open(numbers_filename, '+w') as f:
-        f.write('\n'.join(numbers))
-
-    def store(file_name, data_list):
-        if not os.path.exists(file_name):
-            with open(file_name, '+w'):
-                pass
-
-        with open(file_name, 'a') as f:
-            f.write('\n'.join(data_list))
-
-    # store(numbers_filename, numbers)
-    store('Succeed_Numbers.txt', added_numbers)
-    store('Bad_Numbers.txt', bad_numbers)
-
-
-async def checker_report_status():
-    clients = []
-    for f in os.listdir(CHECKER_CLIENTS_DIR):
-        if not f.endswith(".session"):
-            continue
-        session_name = f.replace('.session', '')
-        print(f'\n    - Check Client({session_name})')
-        client = Client(session_name, workdir=CHECKER_CLIENTS_DIR)
-        clients.append(client)
-        await clients[-1].start()
-        clients[-1].add_handler(MessageHandler(callback=lambda c, m: print(m.text), filters=filters.user('SpamBot')))
-    for client in clients:
-        await client.send(
-            raw.functions.messages.StartBot(
-                bot=await client.resolve_peer('SpamBot'),
-                peer=await client.resolve_peer('SpamBot'),
-                random_id=client.rnd_id(),
-                start_param='start'
-            )
-        )
-
-    for client in clients:
-        await client.stop()
-
-
-async def checker_add_client():
-    session_name = input('Input session name: ')
-    async with Client(session_name, workdir=CHECKER_CLIENTS_DIR) as new_client:
-        print(f'- New Client {new_client.storage.database}')
-
-
-def TelegramPhoneChecker(args):
-
-    if not os.path.exists(CHECKER_CLIENTS_DIR):
-        os.mkdir(CHECKER_CLIENTS_DIR)
-
-    if len(args) == 1:
-        func = checker_main()
-    elif len(args) == 2:
-        if args[1] == '--add':
-            func = checker_add_client()
-        elif args[1] == '--check':
-            func = checker_report_status()
-        elif args[1] == '--continue':
-            func = checker_main(once=False)
-        else:
-            exit('BAD ARGS')
-    else:
-        exit('BAD ARGS')
-
-    print('\nHere we go...\n')
-
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(func)
-    loop.close()
-
-    print('\nFinish!\n')
-# checker end
-# dmsender start
 DMSENDER_CLIENTS_DIR = './clients'
 DMSENDER_TEXT_FILENAME = 'dmsender-text.txt'
 DMSENDER_MAX_ADD_COUNT = 40
@@ -580,8 +216,9 @@ def TelegramDmBulkMsgSender(args):
     loop.close()
 
     print('\nFinish!\n')
-# dmsender end
-# adder
+
+
+
 ADDER_CLIENTS_DIR = './clients'
 ADDER_MAX_ADD_COUNT = 30
 ADDER_SLEEP_INTERVALS = 5  # seconds
@@ -594,9 +231,7 @@ adder_redis = Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
 adder__used_ids = set()
 
-
 class adder_FakeClient(Client):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.participants_q = asyncio.Queue()
@@ -615,7 +250,7 @@ class adder_FakeClient(Client):
             except Exception as e:
                 print(f'    - Client({self.session_name}) Exp : {e}')
         await self.participants_q.put(None)
-
+    
     async def add_progress(self, chat_id, once=True):
         global adder__used_ids
         adding = True
@@ -710,20 +345,7 @@ class adder_FakeClient(Client):
         return amount
 
 
-async def adder_main(destination_chat, origin_chat,once=True):
-    ori_text = 'origin group id or username: '
-    des_text = 'destination group id or username: '
-    if ADDER_ORIGIN_CHAT:
-        origin_chat = ADDER_ORIGIN_CHAT
-        print(f'- {ori_text} {ADDER_ORIGIN_CHAT}')
-    else:
-        origin_chat = input(f'- Enter {ori_text}')
-
-    if ADDER_DESTINATION_CHAT:
-        destination_chat = ADDER_DESTINATION_CHAT
-        print(f'- {des_text} {ADDER_DESTINATION_CHAT}')
-    else:
-        destination_chat = input(f'- Enter {des_text}')
+async def adder_main(destination_chat, origin_chat, once=True):
 
     print('\n- Start Mirror Clients:')
 
@@ -806,7 +428,6 @@ async def adder_add_client(session_name):
     async with Client(session_name, workdir=ADDER_CLIENTS_DIR) as new_client:
         print(f'- New Client {new_client.storage.database}')
 
-
 def TelegramGroupMemberAdder(destination_chat, origin_chat,args,session_name):
 
     if not os.path.exists(ADDER_CLIENTS_DIR):
@@ -838,7 +459,6 @@ def TelegramGroupMemberAdder(destination_chat, origin_chat,args,session_name):
 GPSENDER_CLIENTS_DIR = './clients'
 GPSENDER_TEXT_FILENAME = 'gpsender-text.txt'
 GPSENDER_CHATS_FILENAME = 'gpsender-groups.txt'
-
 
 async def gpsender_send(app, chat_ids, msg):
     for chat_id in chat_ids:
@@ -935,24 +555,3 @@ def TelegramMultiGroupsMsgSender(args):
     loop.close()
 
     print('\nFinish!\n')
-# gpsender end
-if __name__ == '__main__':
-    sysargs = sys.argv
-    if len(sysargs) == 1:
-        print('Please specify the function')
-    elif sysargs[1] == 'prof':
-        TelegramBulkAccountProfileChanger(sysargs[1:])
-    elif sysargs[1] == 'forward':
-        Telegramchannelpostsforwader(sysargs[1:])
-    elif sysargs[1] == 'join':
-        TelegramMemberAutoJoiner(sysargs[1:])
-    elif sysargs[1] == 'checker':
-        TelegramPhoneChecker(sysargs[1:])
-    elif sysargs[1] == 'dmsender':
-        TelegramDmBulkMsgSender(sysargs[1:])
-    elif sysargs[1] == 'adder':
-        TelegramGroupMemberAdder(sysargs[1:])
-    elif sysargs[1] == 'gpsender':
-        TelegramMultiGroupsMsgSender(sysargs[1:])
-    else:
-        print('Wrong function! list:\n prof\n forward\n join\n checker\n dmsender\n adder\n gpsender')
