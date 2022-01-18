@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
     path('user/',include('dashboard.urls')),
+    path('bot/',include('bot.urls')),
 ]

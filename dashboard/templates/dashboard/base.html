@@ -88,9 +88,12 @@
                             <span>Add Found</span>
                         </a>
                     </li>
-
-                    
-
+                    <li class="side-nav-item">
+                        <a href="/bot" class="side-nav-link">
+                            <i class="uil-robot"></i>
+                            <span>Bot</span>
+                        </a>
+                    </li>
                     <li class="side-nav-item">
                         <a href="/user/affiliate" class="side-nav-link">
                             <i class="uil-folder-network"></i>
@@ -176,8 +179,8 @@
                             <div class="page-title-box">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Account Balance</a></li>
-                                        <li class="breadcrumb-item active">$ {{ user.user.balance }}</li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);"><b>Account Balance</b></a></li>
+                                        <li class="breadcrumb-item active"><b>$ {{ account_balance }}</b></li>
                                     </ol>
                                 </div>
                                 <h4 class="page-title text-capitalize">{{ page_title }}</h4>
@@ -226,13 +229,6 @@
     <!-- bundle -->
     <script src="{% static 'assets/js/vendor.min.js' %}"></script>
     <script src="{% static 'assets/js/app.min.js' %}"></script>
-
-    <!-- third party js -->
-    <script src="{% static 'assets/js/vendor/apexcharts.min.js' %}"></script>
-    <script src="{% static 'assets/js/vendor/jquery-jvectormap-1.2.2.min.js' %}"></script>
-    <script src="{% static 'assets/js/vendor/jquery-jvectormap-world-mill-en.js' %}"></script>
-    <!-- third party js ends -->
-
     <!-- demo app -->
     <script src="{% static 'assets/js/pages/demo.dashboard.js' %}"></script>
     <!-- end demo js-->

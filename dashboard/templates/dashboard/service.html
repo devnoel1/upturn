@@ -28,6 +28,23 @@
         </table>
     </div>
 </div>
+<div class="modal fade" id="serviceDetails" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h5> Description:</h5>
+          <p id="de"></p>
+          <h5>Price:</h5>
+          <p id="price"></p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block scripts %}
@@ -42,6 +59,10 @@
         data: {"id": id},
         success: function (response) {
             data = JSON.parse(response.data)  
+            $('#exampleModalToggleLabel').html(data['0']['fields']['name'])
+            $('#de').html(data['0']['fields']['description'])
+            $('#price').html('$'+data['0']['fields']['price'])
+            $('#serviceDetails').modal('show')
         },
         error: function(data) {
             console.log(data);

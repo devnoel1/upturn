@@ -39,14 +39,30 @@
                     <th>Date</th>
                     <th>Method</th>
                     <th>Amount</th>
+                    <th>Status</th>
                 </thead>
                 <tbody>
+                    {% for transaction in transactions %}
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ transaction.pk }}</td>
+                        <td>{{ transaction.created_on }}</td>
+                        <td>{{ transaction.method }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>
+                            {% if transaction.status == '1' %}
+                            <span class="badge bg-success-lighten">Successful</span>
+                            {% endif %}
+                            {% if transaction.status == '0' %}
+                            <span class="badge bg-warning-lighten">Pending</span>
+                            {% endif %}
+
+                            {% if transaction.status == '-1' %}
+                            <span class="badge bg-danger-lighten">Unsuccessful</span>
+                            {% endif %}
+                        </td>
                     </tr>
+                    {% endfor %}
+                    
                 </tbody>
             </table>
         </div>

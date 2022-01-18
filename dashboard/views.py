@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 from dashboard.forms import AccountForm, OrdersForm, TicketForm, TicketReplyForm
-from dashboard.models import Account, Orders, PaymentMethod, Service, Ticket, TicketReply, User
+from dashboard.models import Account, Orders, PaymentMethod, Service, Ticket, TicketReply, Transactions, User
 from dashboard.payments.Coinbase import Coinbase
 from dashboard.payments.PayStack import PayStack
 from dashboard.payments.update_account import UserAccount
@@ -72,6 +72,7 @@ def add_founds(request):
     args = {}
     args['page_title'] = 'add founds'
     args['payment_methods'] = PaymentMethod.objects.all()
+    args['transactions'] = Transactions.objects.filter(user=request.user.pk)
 
     if request.method == "POST":
         method = request.POST['payment_method']
@@ -176,4 +177,5 @@ def profile(request):
 def subscription(request):
     args = {}
     args['page_title'] = 'subscription'
+    args['subscriptions'] = Orders.objects.filter(user=request.user.id)
     return render(request, 'dashboard/subscription.html',args)

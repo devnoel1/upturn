@@ -5,28 +5,27 @@
     <div class="card-body">
         <table class="table table-bordered">
             <thead>
-                <th>ID</th>
                 <th>Date</th>
-                <th>Link</th>
                 <th>Charge</th>
-                <th>Start count</th>
-                <th>Quantity</th>
                 <th>Service</th>
                 <th>Status</th>
-                <th>Remains</th>
+               
             </thead>
             <tbody>
+                {% for subscribtion in subscriptions %}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ subscribtion.created_on }}</td>
+                    <td>$ {{ subscribtion.service.price }}</td>
+                    <td>{{ subscribtion.service.name }}</td>
+                    <td>
+                        {% if subscribtion.status == '1' %}
+                        <span class="badge bg-success-lighten">Active</span>
+                        {% elif  subscribtion.status == '0' %}
+                        <span class="badge bg-danger-lighten">Expired</span>
+                        {% endif %}
+                    </td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
